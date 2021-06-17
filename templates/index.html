@@ -3,128 +3,135 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
+  <title>PhotoGallery</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{{ url_for('static', filename="/css/materialize.css")}}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{{ url_for('static', filename="/css/style.css")}}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{{ url_for('static', filename="/css/custom.css")}}" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <script src="{{ url_for('static', filename="js/frontEndScript.js") }}"></script>
-  <script src="{{ url_for('static', filename="js/frontEndScript.js") }}"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"/>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- JS  -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename="js/init.js") }}"></script>
+  <script src="{{ url_for('static', filename="js/materialize.js") }}"></script>
 
 </head>
 <body>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo"><i class="material-icons">monochrome_photos</i>PHOTO GALLERY</a>
-      <ul class="right hide-on-med-and-down">
-        <li>
-          <label for="upload">
-                <span class="" aria-hidden="true"><a id="uploadButton"><i class="material-icons">cloud_upload</i></a></span>
-                <input type="file" id="upload" style="display:none" ref="fileUpload" id="file">
-          </label>
-        </li>
-        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-      </ul>
+  <nav class="z-depth-5">
+    <div class="nav-wrapper yellow darken-4 z-depth-3">
+      <a href="#!" class="brand-logo">PhotoGallery</a>
     </div>
   </nav>
 
-  <div class="section no-pad-bot" id="index-banner">
+  <div class="section no-pad-bot roseBackground " id="index-banner">
     <div class="container">
       <br><br>
-      <h1 class="header center orange-text">Starter Template</h1>
+      <h1 class="header center orange-text">Thank you for sharing that moment with me!</h1>
       <div class="row center">
-        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+        <h5 class="header col s12 white-text">Please upload all of the cool photos you took of that beautiful day.</h5>
+      </div>
+      <div class="row center">
+        <div class="file-upload">
+            <input class="file-upload__input" type="file" name="myFile[]" id="myFile" multiple>
+            <button class="file-upload__button btn-large waves-effect waves-light orange" type="button">Choose File(s)</button>
+            <span class="file-upload__label white-text"></span>
+        </div>
       </div>
       <br><br>
-
     </div>
   </div>
 
 
   <div class="container">
     <div class="section">
+        <div class="row">
+              {% for image in images %}
+                <div class="col s6">
+                    <img style='height: 100%; width: 100%; object-fit: contain' class="materialboxed" height="250" width="250" src="{{image}}">
+                </div>
+              {% endfor %}
 
-      <!--   Icon Section   -->
-      <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-            <h5 class="center">Speeds up development</h5>
-
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
-          </div>
         </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">User Experience Focused</h5>
-
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-            <h5 class="center">Easy to work with</h5>
-
-            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
-          </div>
-        </div>
-      </div>
-
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.materialboxed');
+                var instances = M.Materialbox.init(elems, options);
+            });
+            $(document).ready(function(){
+                $('.materialboxed').materialbox();
+            });
+        </script>
     </div>
-    <br><br>
   </div>
 
-  <footer class="page-footer orange">
+  <footer class="page-footer black">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
+          <h5 class="white-text">Gallery prototype</h5>
+          <p class="grey-text text-lighten-4">First version of our centrilized PhotoGallery.</p>
         </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-      </div>
     </div>
     <div class="footer-copyright">
       <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      Made by Tayla Tineu
       </div>
     </div>
     <script>
-          var fileInput = $("#file")
-          var button =$("#uploadFile")
-          fileInput.onchange = () => {
-              alert("uhuu");
+      var output = "";
+       Array.prototype.forEach.call(
+          document.querySelectorAll(".file-upload__button"),
+          function(button) {
+              const hiddenInput = button.parentElement.querySelector(
+                ".file-upload__input"
+              );
+              const label = button.parentElement.querySelector(".file-upload__label");
+              const defaultLabelText = "No file(s) selected";
+
+              // Set default text for label
+              label.textContent = defaultLabelText;
+              label.title = defaultLabelText;
+
+              button.addEventListener("click", function() {
+                hiddenInput.click();
+              });
+
+              hiddenInput.addEventListener("change", event => {
+                  const file = event.target.files[0];
+                  const reader = new FileReader();
+                  reader.addEventListener('load', event => {
+                    output = event.target.result;
+                    console.log(output);
+                    var jsonString= JSON.stringify({img : output });
+                    console.log(jsonString);
+                    
+                    const response = fetch('/store', {
+                      method: 'POST',
+                      body: jsonString, // string or object
+                      headers: {
+                        'Content-Type': 'application/json'
+                      }
+                    });
+
+                     
+                  });
+                  reader.readAsDataURL(file);
+                  label.textContent = "Upload completed, please refresh the page.";
+                  label.title = "Upload completed, please refresh the page.";
+                  M.toast({html: 'Please refresh the page'})
+              });
+
           }
+
+      );
+    
     </script>
+
   </footer>
 
   
